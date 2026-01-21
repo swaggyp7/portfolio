@@ -156,7 +156,7 @@ export const EDUCATION = [
     {
       school: "Jilin University",
       program: "B.Sc. in Computer Science",
-      period: "",
+      period: "Sep 2020 - Jan 2023",
       location: "China",
     },
   ];
