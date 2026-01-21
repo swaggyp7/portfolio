@@ -29,5 +29,5 @@ jobs:
         with:
           personal_token: ${{ secrets.DEPLOY_TOKEN }}
           external_repository: swaggyp7/swaggyp7.github.io
-          publish_branch: main
+          publish_branch: example
           publish_dir: ./dist
