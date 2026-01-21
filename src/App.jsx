@@ -1,192 +1,6 @@
-// React Portfolio (Vite) — Single-file editable version for Canvas
-// 
-// Usage (local):
-// 1) npm create vite@latest portfolio-react -- --template react
-// 2) Replace src/App.jsx with this file content (or split into App.jsx + data.js + styles.css)
-// 3) Put CSS into src/styles.css and import it in src/main.jsx
-// 
-// In Canvas, edit PROFILE / PROJECTS / EXPERIENCE etc.
-
 import React, { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
-
-// ---------------------------
-// Editable Data (edit here)
-// ---------------------------
-const PROFILE = {
-  name: "Yuteng Lin",
-  title: "Full-Stack Web Developer",
-  location: "Winnipeg, MB",
-  email: "swaggyplyt@gmail.com",
-  phone: "(431) 554-0919",
-  links: {
-    github: "YOUR_GITHUB_URL",
-    linkedin: "YOUR_LINKEDIN_URL",
-    resume: "YOUR_RESUME_PDF_URL", // public link (Google Drive, GitHub, etc.)
-  },
-  highlights: ["Vue 3", "React", "Node.js", "PHP", "SQL", "TypeScript"],
-  heroTitle: "Building practical, production-ready web apps & internal tools.",
-  summary:
-    "Full-Stack Web Developer with 4 years of experience in a product company (China), now in Winnipeg and studying Full Stack Web Development at Red River College Polytechnic. Strong across front-end, back-end, databases, debugging, and shipping features end-to-end.",
-  interests:
-    "Interested in Junior / Co-op / Part-time roles · Learning local best practices · Ready to contribute from day one.",
-};
-
-// Edit these percentages to reflect your confidence.
-// Tip: keep most values between 55–90 to look realistic.
-const MAIN_SKILLS = [
-  { name: "Vue 3", level: 88 },
-  { name: "React", level: 78 },
-  { name: "TypeScript", level: 82 },
-  { name: "Node.js", level: 72 },
-  { name: "PHP", level: 76 },
-  { name: "SQL (MySQL/MS SQL)", level: 80 },
-];
-
-const SKILLS = [
-  {
-    group: "Front-End",
-    items: ["Vue 3", "React", "TypeScript", "HTML5/CSS3", "Responsive Web Design"],
-  },
-  {
-    group: "Back-End & APIs",
-    items: ["Node.js", "Express (basic)", "PHP", "RESTful APIs", "C# / ASP.NET (basic)"],
-  },
-  {
-    group: "Databases",
-    items: ["MySQL", "MS SQL", "Oracle DB", "SQLite", "Joins/Aggregation", "Stored Procedures"],
-  },
-  {
-    group: "Testing & Tools",
-    items: ["Jest (basic)", "Chrome DevTools", "Git/GitHub", "Docker", "Postman", "VS Code/Visual Studio"],
-  },
-];
-
-const EXPERIENCE = [
-  {
-    company: "Hunan Xingtui Technology Co., Ltd.",
-    role: "Full-Stack Developer",
-    period: "Oct 2021 – Feb 2025",
-    location: "Changsha, China",
-    bullets: [
-      "Developed and maintained multiple B2C web & hybrid apps and internal tools (Vue/React/Node/PHP/MySQL).",
-      "Owned features end-to-end: DB schema, API endpoints, responsive UI components, and release support.",
-      "Optimized SQL for dashboards & reporting; improved slow queries with indexing and profiling.",
-      "Resolved production issues by reproducing bugs, analyzing logs/stack traces, and debugging.",
-      "Collaborated with PM/design/QA in Agile sprints; documented features and deployment notes.",
-    ],
-  },
-];
-
-const PROJECTS = [
-  {
-    name: "Multi-Variant Game & Campaign Platform",
-    stack: "Vue · TypeScript · PHP · MySQL · Android WebView / JSBridge",
-    intro:
-      "A large incentive / campaign platform with several variants (web, Android hybrid, mini-app). Users complete tasks to earn rewards; internal teams configure campaigns, monitor performance, and fight abuse.",
-    challenges: [
-      "Multiple variants gradually diverged (duplicate logic + inconsistent UI/behavior).",
-      "Campaign rules needed frequent changes without redeploying, while keeping active campaigns stable.",
-      "Peak traffic campaigns exposed performance bottlenecks on hot endpoints and slow SQL.",
-    ],
-    whatIDid: [
-      "Refactored UI into shared, reusable components (task cards, reward lists, progress indicators) to keep behavior consistent across variants.",
-      "Designed a central campaign configuration model in MySQL and exposed APIs so ops could adjust rules/rewards without code changes.",
-      "Implemented JSBridge interfaces so Android could securely pass tokens/device info and the web layer could trigger native capabilities.",
-      "Profiled slow queries, added indexes, and introduced caching/rate-limiting around hot endpoints used during peak campaigns.",
-    ],
-    results: [
-      "Faster feature rollout across variants and less duplicated maintenance work.",
-      "Safer campaign iteration with fewer deployment-time incidents.",
-      "Improved responsiveness and stability during high-traffic periods (fewer complaints + less emergency debugging).",
-    ],
-    tags: ["Reusable components", "Config-driven rules", "Performance", "JSBridge"],
-    images: [
-      "/projects/game-01.jpg",
-      "/projects/game-02.jpg",
-      "/projects/game-03.jpg",
-      "/projects/game-04.jpg",
-    ],
-  },
-  {
-    name: "Internal CMS & Admin Dashboard",
-    stack: "React · TypeScript · PHP · MySQL",
-    intro:
-      "An internal CMS + dashboard for non-technical teams to manage marketing pages, in-app content, FAQs, and multi-campaign text/images with approvals and publishing controls.",
-    challenges: [
-      "Small content changes required developers, causing slow turnaround and more mistakes.",
-      "Content structure lacked a single source of truth; updates were scattered across templates/config.",
-      "Admin UI had to be flexible for layouts but still safe and easy for non-technical users.",
-    ],
-    whatIDid: [
-      "Modeled content in a structured DB schema (pages → sections → blocks) with metadata (language/status/publish time) for governance and reuse.",
-      "Built React admin screens: lists + filters (campaign/status/language), inline editors, and validation to reduce accidental breaks.",
-      "Added reporting pages and dashboard views for key metrics (e.g., DAU, transaction volume, campaign performance) with tables and drill-down.",
-    ],
-    results: [
-      "Non-technical teams could update content and monitor core metrics without developer help.",
-      "Reduced campaign/content turnaround time; fewer back-and-forth requests.",
-      "Unified content management + reporting into one extensible internal platform.",
-    ],
-    tags: ["Admin UX", "Content modeling", "CRUD", "Reporting"],
-    images: [
-      "/projects/cms-01.png",
-      "/projects/cms-02.png",
-      "/projects/cms-03.png",
-      "/projects/cms-04.png",
-    ],
-  },
-  {
-    name: "Google Play Review Crawler & Reporting",
-    stack: "Python · Scrapy · Scheduled Tasks · DB · CSV/Excel",
-    intro:
-      "A scheduled crawler that collects Google Play reviews, stores them in a structured database, and produces daily/weekly reporting to catch rating drops and recurring complaints after releases.",
-    challenges: [
-      "Review pages are noisy and can change—selectors needed to be maintainable and resilient.",
-      "The crawler had to be stable (retries, throttling) and avoid aggressive request patterns.",
-      "Ops needed actionable signals (spikes, keywords, version impact), not raw text.",
-    ],
-    whatIDid: [
-      "Built a Scrapy spider to extract rating/text/time/version/locale, handle pagination, errors, and deduplication.",
-      "Normalized + stored reviews with indexes by date/rating/version, and categorized issues via keyword tagging (e.g., crash/login/payment).",
-      "Generated automated CSV/Excel outputs and summary metrics (daily rating trend, negative spikes, top complaint keywords).",
-    ],
-    results: [
-      "Enabled near real-time feedback monitoring instead of manual store checks.",
-      "Helped teams identify post-release issues faster when negative reviews spiked.",
-      "Turned unstructured reviews into searchable, trendable insights for prioritization.",
-    ],
-    tags: ["Scrapy", "Scheduling", "Data pipeline", "Insights"],
-    images: [],
-  },
-];
-
-const EDUCATION = [
-  {
-    school: "Red River College Polytechnic",
-    program: "Full Stack Web Development Diploma",
-    period: "Expected Aug 2026",
-    location: "Canada",
-  },
-  {
-    school: "Jilin University",
-    program: "B.Sc. in Computer Science",
-    period: "",
-    location: "China",
-  },
-];
-
-// ---------------------------
-// UI Sections
-// ---------------------------
-const SECTIONS = [
-  { id: "about", label: "About" },
-  { id: "skills", label: "Skills" },
-  { id: "projects", label: "Projects" },
-  { id: "experience", label: "Experience" },
-  { id: "education", label: "Education" },
-  { id: "contact", label: "Contact" },
-];
+import {PROFILE, MAIN_SKILLS, SKILLS, EXPERIENCE, PROJECTS, EDUCATION, SECTIONS} from './data'
 
 function cx(...xs) {
   return xs.filter(Boolean).join(" ");
@@ -298,7 +112,6 @@ function ProjectGallery({ title, images = [] }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, images.length]);
 
-  // Lock page scroll while modal is open (prevents nested transformed parent from affecting fixed positioning)
   useEffect(() => {
     if (!open) return;
     if (!portalRoot) return;
@@ -488,7 +301,6 @@ export default function App() {
 
     els.forEach((el) => io.observe(el));
 
-    // Safety net: if something goes wrong, never keep content invisible
     const t = window.setTimeout(() => {
       const anyVisible = els.some((el) => el.classList.contains("revealIn"));
       if (!anyVisible) revealAll();
@@ -532,7 +344,6 @@ export default function App() {
       </header>
 
       <main className="container">
-        {/* HERO */}
         <section className="hero reveal" data-reveal>
           <div className="card heroLeft hoverCard reveal" data-reveal>
             <div className="kicker">
@@ -574,7 +385,6 @@ export default function App() {
           </aside>
         </section>
 
-        {/* ABOUT */}
         <Card id="about" className="section hoverCard reveal" data-reveal>
           <h2>About</h2>
           <div className="twoCol">
@@ -601,7 +411,6 @@ export default function App() {
           </div>
         </Card>
 
-        {/* SKILLS */}
         <Card id="skills" className="section hoverCard reveal" data-reveal>
           <h2>Technical Skills</h2>
           <p className="muted" style={{ marginTop: -2 }}>
@@ -638,7 +447,6 @@ export default function App() {
           </div>
         </Card>
 
-        {/* PROJECTS */}
         <Card id="projects" className="section hoverCard reveal" data-reveal>
           <div className="sectionHeader">
             <h2>Project Highlights</h2>
@@ -666,7 +474,6 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* Right: Visuals (screenshots) */}
                   <div className="projMedia">
                     {p.images?.length ? (
                       <>
@@ -688,7 +495,6 @@ export default function App() {
           </div>
         </Card>
 
-        {/* EXPERIENCE */}
         <Card id="experience" className="section hoverCard reveal" data-reveal>
           <h2>Experience</h2>
           <div className="timeline">
@@ -712,7 +518,6 @@ export default function App() {
           </div>
         </Card>
 
-        {/* EDUCATION */}
         <Card id="education" className="section hoverCard reveal" data-reveal>
           <h2>Education</h2>
           <div className="timeline">
@@ -727,14 +532,12 @@ export default function App() {
           </div>
         </Card>
 
-        {/* CONTACT */}
         <Card id="contact" className="section hoverCard reveal" data-reveal>
           <h2>Contact</h2>
           <p className="muted">Best way to reach me is email. I’m happy to share more project details, code samples, and discuss how I can help your team.</p>
 
           <div className="ctaRow" style={{ marginTop: 14 }}>
             <a className="btn primary" href={`mailto:${PROFILE.email}`}>Email: {PROFILE.email}</a>
-            <a className="btn" href={`tel:${PROFILE.phone.replace(/[^\d+]/g, "")}`}>Call: {PROFILE.phone}</a>
             <a className="btn" href={PROFILE.links.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
             <a className="btn" href={PROFILE.links.github} target="_blank" rel="noreferrer">GitHub</a>
           </div>
