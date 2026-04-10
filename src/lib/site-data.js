@@ -100,9 +100,11 @@ export const timeline = [
 
 export const projects = [
   {
+    slug: "game-campaign-platform",
     name: "Multi-Variant Game & Campaign Platform",
     year: "2024",
     accent: "orange",
+    category: "Campaign platform",
     stack: ["Vue", "TypeScript", "PHP", "MySQL", "Android WebView"],
     summary:
       "A campaign platform spanning web and Android hybrid surfaces where users completed tasks for rewards and operations teams needed control without emergency deploys.",
@@ -117,11 +119,14 @@ export const projects = [
       "/projects/game-03.jpg",
       "/projects/game-04.jpg",
     ],
+    demoUrl: "/portfolio/demo/game-campaign-platform",
   },
   {
+    slug: "cms-admin-dashboard",
     name: "Internal CMS & Admin Dashboard",
     year: "2023",
     accent: "green",
+    category: "Admin system",
     stack: ["React", "TypeScript", "PHP", "MySQL"],
     summary:
       "A content and reporting system for non-technical teams to manage campaigns, edit content, and monitor performance without waiting on developers for every change.",
@@ -136,11 +141,14 @@ export const projects = [
       "/projects/cms-03.png",
       "/projects/cms-04.png",
     ],
+    demoUrl: "/portfolio/demo/cms-admin-dashboard",
   },
   {
+    slug: "review-crawler-reporting",
     name: "Google Play Review Crawler & Reporting",
     year: "2022",
     accent: "blue",
+    category: "Data pipeline",
     stack: ["Python", "Scrapy", "Scheduling", "CSV/Excel"],
     summary:
       "A scheduled review-monitoring pipeline that turned noisy store feedback into searchable issue clusters and recurring quality signals after releases.",
@@ -150,6 +158,7 @@ export const projects = [
       "Helped teams react faster to release regressions with less manual checking.",
     ],
     images: [],
+    demoUrl: "/portfolio/demo/review-crawler-reporting",
   },
 ];
 

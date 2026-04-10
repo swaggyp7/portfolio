@@ -83,6 +83,27 @@ export function OSIcon({ type, title }) {
           <rect x="11" y="6" width="2" height="1" fill="#111" />
         </Svg>
       );
+    case "exe":
+      return (
+        <Svg title={title}>
+          <path d="M4 2h7l3 3v11H4V2Z" fill="#fffef8" stroke="#111" />
+          <path d="M11 2v3h3" fill="#dfe9ff" stroke="#111" />
+          <rect x="6" y="7" width="6" height="1" fill="#2556d8" />
+          <rect x="6" y="9" width="6" height="1" fill="#55a630" />
+          <rect x="6" y="11" width="4" height="1" fill="#e33636" />
+          <rect x="10" y="11" width="2" height="2" fill="#ffcd45" stroke="#111" />
+        </Svg>
+      );
+    case "file":
+      return (
+        <Svg title={title}>
+          <path d="M4 2h7l3 3v11H4V2Z" fill="#fffef8" stroke="#111" />
+          <path d="M11 2v3h3" fill="#e6e6e6" stroke="#111" />
+          <rect x="6" y="7" width="6" height="1" fill="#7f8c99" />
+          <rect x="6" y="9" width="6" height="1" fill="#7f8c99" />
+          <rect x="6" y="11" width="5" height="1" fill="#7f8c99" />
+        </Svg>
+      );
     default:
       return (
         <Svg title={title}>
