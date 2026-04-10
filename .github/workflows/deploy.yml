@@ -19,7 +19,7 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build project
         run: npm run build
@@ -30,4 +30,4 @@ jobs:
           personal_token: ${{ secrets.DEPLOY_TOKEN }}
           external_repository: swaggyp7/swaggyp7.github.io
           publish_branch: example
-          publish_dir: ./dist
+          publish_dir: ./out
