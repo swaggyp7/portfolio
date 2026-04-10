@@ -16,6 +16,11 @@ function SectionPanel({ title, children, tone = "blue" }) {
 }
 
 export default function ComputerPage() {
+  const educationTimeline = timeline.filter((item) =>
+    item.subtitle.includes("Diploma") || item.subtitle.includes("B.Sc.")
+  );
+  const workTimeline = timeline.filter((item) => item.subtitle === "Full-Stack Developer");
+
   return (
     <DesktopShell title="Yuteng's Computer" currentPath="/computer" address="yuteng://desktop/computer">
       <div className="space-y-5">
@@ -54,43 +59,6 @@ export default function ComputerPage() {
 
         <div className="grid gap-5 xl:grid-cols-[1.18fr_0.82fr]">
           <div className="space-y-5">
-            <div className="grid gap-5 lg:grid-cols-[0.88fr_1.12fr]">
-              <SectionPanel title="Contents" tone="orange">
-                <div className="space-y-3">
-                  {[
-                    ["01", "Introduction", siteConfig.summary],
-                    ["02", "Navigation", "Browse projects, writing, and contact info from the taskbar below."],
-                    ["03", "Resume", "Open the resume shortcut for a clean PDF-style handoff."],
-                    ["04", "Contact", "Best reached by email, with LinkedIn and GitHub one click away."],
-                  ].map(([code, heading, body]) => (
-                    <div key={code} className="contents-row">
-                      <div className="contents-index">{code}</div>
-                      <div>
-                        <div className="font-display text-[12px] text-os-navy">{heading}</div>
-                        <p className="mt-2 text-[1.4rem] leading-[1.05] text-os-slate">{body}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </SectionPanel>
-
-              <SectionPanel title="Introduction" tone="green">
-                <div className="space-y-4 text-[1.7rem] leading-[1.12] text-os-slate">
-                  <p>{siteConfig.summary}</p>
-                  <p>
-                    I like practical product work: improving consistency with shared UI, tuning SQL behind dashboards,
-                    cleaning up flows for internal teams, and debugging the kind of bugs that only show up right before release.
-                  </p>
-                  <div className="status-line">
-                    <span className="status-dot" />
-                    <span>{siteConfig.availability}</span>
-                  </div>
-                </div>
-              </SectionPanel>
-            </div>
-          </div>
-
-          <div className="space-y-5">
             <SectionPanel title="Focus Areas" tone="blue">
               <div className="space-y-3">
                 {focusAreas.map((item) => (
@@ -102,6 +70,42 @@ export default function ComputerPage() {
               </div>
             </SectionPanel>
 
+            <SectionPanel title="Education" tone="green">
+              <div className="space-y-4">
+                {educationTimeline.map((item) => (
+                  <div key={item.period} className="timeline-row">
+                    <div className="font-display text-[10px] text-os-green">{item.period}</div>
+                    <div className="text-[1.55rem] leading-[1.02] text-os-navy">
+                      <div className="font-display text-[11px] leading-[1.4]">{item.title}</div>
+                      <div className="mt-1 text-[1.25rem] uppercase tracking-[0.16em] text-os-purple">
+                        {item.subtitle}
+                      </div>
+                      <p className="mt-2 text-os-slate">{item.body}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </SectionPanel>
+
+            <SectionPanel title="Professional Experience" tone="orange">
+              <div className="space-y-4">
+                {workTimeline.map((item) => (
+                  <div key={item.period} className="timeline-row">
+                    <div className="font-display text-[10px] text-os-orange">{item.period}</div>
+                    <div className="text-[1.55rem] leading-[1.02] text-os-navy">
+                      <div className="font-display text-[11px] leading-[1.4]">{item.title}</div>
+                      <div className="mt-1 text-[1.25rem] uppercase tracking-[0.16em] text-os-purple">
+                        {item.subtitle}
+                      </div>
+                      <p className="mt-2 text-os-slate">{item.body}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </SectionPanel>
+          </div>
+
+          <div className="space-y-5">
             <SectionPanel title="Core Skills" tone="purple">
               <div className="grid gap-4">
                 {skillGroups.map((group) => (
@@ -112,23 +116,6 @@ export default function ComputerPage() {
                     <p className="mt-2 text-[1.5rem] leading-[1.05] text-os-slate">
                       {group.items.join(" / ")}
                     </p>
-                  </div>
-                ))}
-              </div>
-            </SectionPanel>
-
-            <SectionPanel title="Timeline" tone="orange">
-              <div className="space-y-4">
-                {timeline.map((item) => (
-                  <div key={item.period} className="timeline-row">
-                    <div className="font-display text-[10px] text-os-orange">{item.period}</div>
-                    <div className="text-[1.55rem] leading-[1.02] text-os-navy">
-                      <div className="font-display text-[11px] leading-[1.4]">{item.title}</div>
-                      <div className="mt-1 text-[1.25rem] uppercase tracking-[0.16em] text-os-purple">
-                        {item.subtitle}
-                      </div>
-                      <p className="mt-2 text-os-slate">{item.body}</p>
-                    </div>
                   </div>
                 ))}
               </div>

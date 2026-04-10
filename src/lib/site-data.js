@@ -52,7 +52,7 @@ export const systemStats = [
   { label: "Location", value: "Winnipeg, Canada" },
   { label: "Primary stack", value: "React, Vue, Node, PHP, SQL" },
   { label: "Work style", value: "Debug-first, product-minded, collaborative" },
-  { label: "Availability", value: "Open for 2026 opportunities" },
+  { label: "Availability", value: "Open for intership, full-time, and part-time opportunities" },
 ];
 
 export const focusAreas = [
@@ -95,13 +95,6 @@ export const timeline = [
     subtitle: "Full-Stack Developer",
     body:
       "Delivered B2C apps and internal platforms using Vue, React, Node, PHP, and MySQL. Worked across feature ownership, production support, performance fixes, and release collaboration.",
-  },
-  {
-    period: "2020 - 2023",
-    title: "Jilin University",
-    subtitle: "B.Sc. in Computer Science",
-    body:
-      "Built the CS foundation behind my current product work, from systems thinking and algorithms to the discipline needed to ship and maintain software.",
   },
 ];
 
