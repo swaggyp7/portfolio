@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { XPIcon } from "@/components/xp-icon";
 import { projects } from "@/lib/site-data";
 
 export function generateStaticParams() {
@@ -49,7 +50,9 @@ export default function PortfolioDemoPage({ params }) {
 
         <div className="toolbar">
           <Link href="/portfolio" className="toolbar-button">
-            <span className="icon-tile small">←</span>
+            <span className="icon-tile small">
+              <XPIcon type="folder-open" className="h-[16px] w-[16px] object-contain" size={16} />
+            </span>
             Back
           </Link>
         </div>

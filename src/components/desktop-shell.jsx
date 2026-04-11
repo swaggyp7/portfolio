@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { desktopShortcuts, navigation, siteConfig, socialLinks } from "@/lib/site-data";
-import { OSIcon } from "@/components/os-icon";
+import { desktopShortcuts, navigation, socialLinks } from "@/lib/site-data";
+import { XPIcon } from "@/components/xp-icon";
+import { TaskbarClock } from "@/components/taskbar-clock";
 
 function NavButton({ href, label, icon, active }) {
   return (
@@ -10,7 +11,7 @@ function NavButton({ href, label, icon, active }) {
         active ? "task-button-active" : ""
       }`}
     >
-      <OSIcon type={icon} />
+      <XPIcon type={icon} className="h-[18px] w-[18px] object-contain" size={18} />
       <span>{label}</span>
     </Link>
   );
@@ -20,24 +21,24 @@ function Shortcut({ href, icon, label }) {
   return (
     <Link href={href} className="desktop-shortcut">
       <span className="desktop-icon">
-        <OSIcon type={icon} />
+        <XPIcon type={icon} className="h-[42px] w-[42px] object-contain" size={42} />
       </span>
       <span className="desktop-shortcut-label">{label}</span>
     </Link>
   );
 }
 
-function SocialButton({ href, label, code }) {
+function SocialButton({ href, label, icon }) {
   return (
     <a
       href={href}
       target={href.startsWith("mailto:") ? undefined : "_blank"}
       rel={href.startsWith("mailto:") ? undefined : "noreferrer"}
-      className="task-button min-w-0 px-3 text-[12px]"
+      className="social-brand-link"
       aria-label={label}
+      title={label}
     >
-      <span className="social-chip">{code}</span>
-      <span className="hidden sm:inline">{label}</span>
+      <XPIcon type={icon} className="h-5 w-5 object-contain" size={20} />
     </a>
   );
 }
@@ -45,9 +46,9 @@ function SocialButton({ href, label, code }) {
 export function DesktopShell({ title, currentPath, address, children, showWindow = true }) {
   return (
     <div className="desktop-wallpaper min-h-screen pb-28">
-      <div className="mx-auto flex w-full max-w-[1440px] gap-6 px-3 py-5 sm:px-5 md:px-6">
-        <aside className="hidden w-[126px] shrink-0 lg:block">
-          <div className="sticky top-6 flex flex-col gap-6">
+      <div className="mx-auto flex w-full max-w-[1440px] gap-4 px-1 py-3 sm:px-3 md:px-4">
+        <aside className="hidden w-[96px] shrink-0 lg:block">
+          <div className="sticky top-3 flex flex-col gap-10">
             {desktopShortcuts.map((shortcut) => (
               <Shortcut key={shortcut.href} {...shortcut} />
             ))}
@@ -58,7 +59,7 @@ export function DesktopShell({ title, currentPath, address, children, showWindow
           <div className="mb-4 flex gap-3 overflow-x-auto lg:hidden">
             {desktopShortcuts.map((shortcut) => (
               <Link key={shortcut.href} href={shortcut.href} className="desktop-quick-link">
-                <OSIcon type={shortcut.icon} />
+                <XPIcon type={shortcut.icon} className="h-8 w-8 object-contain" size={32} />
                 <span>{shortcut.label}</span>
               </Link>
             ))}
@@ -84,33 +85,6 @@ export function DesktopShell({ title, currentPath, address, children, showWindow
                 ))}
               </div>
 
-              <div className="toolbar">
-                <a href={currentPath} className="toolbar-button">
-                  <span className="icon-tile small">
-                    <OSIcon type="chat" />
-                  </span>
-                  Refresh
-                </a>
-                <a href={siteConfig.resumeUrl} target="_blank" rel="noreferrer" className="toolbar-button">
-                  <span className="icon-tile small">
-                    <OSIcon type="pencil" />
-                  </span>
-                  Resume
-                </a>
-                <Link href="/" className="toolbar-button">
-                  <span className="icon-tile small">
-                    <OSIcon type="home" />
-                  </span>
-                  Home
-                </Link>
-                <Link href="/contact" className="toolbar-button">
-                  <span className="icon-tile small">
-                    <OSIcon type="mail" />
-                  </span>
-                  Contact
-                </Link>
-              </div>
-
               <div className="address-bar">
                 <span className="font-display text-[10px] text-os-navy">Address</span>
                 <div className="address-input">{address}</div>
@@ -125,24 +99,34 @@ export function DesktopShell({ title, currentPath, address, children, showWindow
       </div>
 
       <div className="taskbar">
-        <div className="mx-auto flex w-full max-w-[1440px] flex-wrap items-center gap-2 px-2 py-2 sm:px-4">
-          {navigation.map((item) => (
+        <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-3 px-2 py-1.5 sm:px-4">
+          <div className="flex flex-1 flex-wrap items-center gap-2">
             <NavButton
-              key={item.href}
-              href={item.href}
-              label={item.label}
-              icon={item.icon}
-              active={currentPath === item.href}
+              href={navigation[0].href}
+              label={navigation[0].label}
+              icon={navigation[0].icon}
+              active={currentPath === navigation[0].href}
             />
-          ))}
 
-          <div className="mx-1 hidden h-10 w-px bg-os-steel shadow-[1px_0_0_#fff] sm:block" />
+            <div className="taskbar-separator hidden sm:block" />
 
-          <div className="flex flex-wrap gap-2">
-            {socialLinks.map((item) => (
-              <SocialButton key={item.href} {...item} />
-            ))}
+            <div className="flex flex-wrap items-center gap-3 px-1">
+              {socialLinks.map((item) => (
+                <SocialButton key={item.href} {...item} />
+              ))}
+            </div>
+
+            <div className="taskbar-separator hidden sm:block" />
+
+            <NavButton
+              href={navigation[1].href}
+              label={navigation[1].label}
+              icon={navigation[1].icon}
+              active={currentPath === navigation[1].href}
+            />
           </div>
+
+          <TaskbarClock />
         </div>
       </div>
     </div>

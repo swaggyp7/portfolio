@@ -5,7 +5,7 @@ export const siteConfig = {
   location: "Winnipeg, MB",
   email: "yutenglin.dev@gmail.com",
   phone: "(431) 554-0919",
-  availability: "Available for internship, junior, and part-time roles",
+  availability: "Open for intership, full-time, and part-time opportunities",
   headline: "Turning Business Needs into Practical Digital Solutions",
   intro:
     "From internal systems and dashboards to workflow tools and support processes, I build solutions that connect business needs with reliable implementation.",
@@ -18,9 +18,7 @@ export const siteConfig = {
 };
 
 export const navigation = [
-  { href: "/", label: "Home", icon: "home" },
-  { href: "/portfolio", label: "Portfolio", icon: "pencil" },
-  { href: "/blog", label: "Blog", icon: "blog" },
+  { href: "/", label: "Desktop", icon: "home" },
   { href: "/contact", label: "Contact", icon: "chat" },
 ];
 
@@ -35,17 +33,12 @@ export const desktopShortcuts = [
     label: "Projects",
     icon: "folder",
   },
-  {
-    href: "/contact",
-    label: "Contact",
-    icon: "mail",
-  },
 ];
 
 export const socialLinks = [
-  { href: siteConfig.github, label: "GitHub", code: "GH" },
-  { href: `mailto:${siteConfig.email}`, label: "Email", code: "@" },
-  { href: siteConfig.linkedin, label: "LinkedIn", code: "in" },
+  { href: siteConfig.github, label: "GitHub", icon: "github-brand" },
+  { href: siteConfig.linkedin, label: "LinkedIn", icon: "linkedin-brand" },
+  { href: `mailto:${siteConfig.email}`, label: "Email", icon: "gmail-brand" },
 ];
 
 export const systemStats = [
@@ -108,6 +101,21 @@ export const projects = [
     stack: ["Vue", "TypeScript", "PHP", "MySQL", "Android WebView"],
     summary:
       "A campaign platform spanning web and Android hybrid surfaces where users completed tasks for rewards and operations teams needed control without emergency deploys.",
+    features: [
+      "Multi-variant campaign flows shared across web and Android hybrid surfaces.",
+      "Centralized campaign rule configuration for operations teams.",
+      "Reward task management with reusable UI patterns across product variants.",
+    ],
+    responsibilities: [
+      "Refactored shared UI patterns across multiple product variants to keep user flows consistent.",
+      "Built a central campaign configuration model so operations could manage rules without urgent code changes.",
+      "Worked on performance tuning for high-traffic endpoints used during peak campaign periods.",
+    ],
+    results: [
+      "Reduced duplicated maintenance work across product variants.",
+      "Made campaign updates safer and faster for operations teams.",
+      "Improved responsiveness and stability during traffic spikes.",
+    ],
     impact: [
       "Refactored shared UI patterns so multiple variants stopped drifting apart.",
       "Built a central campaign configuration model so ops could adjust rules safely.",
@@ -130,6 +138,21 @@ export const projects = [
     stack: ["React", "TypeScript", "PHP", "MySQL"],
     summary:
       "A content and reporting system for non-technical teams to manage campaigns, edit content, and monitor performance without waiting on developers for every change.",
+    features: [
+      "Structured content editing with reusable blocks and validation.",
+      "Admin workflows with filtering, inline editing, and safer publishing controls.",
+      "Integrated reporting views for campaign and content performance monitoring.",
+    ],
+    responsibilities: [
+      "Designed structured content models for pages, sections, and reusable blocks.",
+      "Built admin flows with filters, validation, and inline editing for non-technical users.",
+      "Added reporting views so teams could monitor key metrics in the same system.",
+    ],
+    results: [
+      "Reduced turnaround time for content and campaign updates.",
+      "Lowered day-to-day dependence on developers for routine content changes.",
+      "Unified content management and reporting into one internal platform.",
+    ],
     impact: [
       "Modeled content as reusable structured data instead of scattered templates.",
       "Built admin screens with filters, validation, and inline editing for safer updates.",
@@ -152,6 +175,21 @@ export const projects = [
     stack: ["Python", "Scrapy", "Scheduling", "CSV/Excel"],
     summary:
       "A scheduled review-monitoring pipeline that turned noisy store feedback into searchable issue clusters and recurring quality signals after releases.",
+    features: [
+      "Automated review collection with retry handling and scheduled runs.",
+      "Issue categorization that grouped user feedback into recurring complaint themes.",
+      "Exportable reporting outputs for operations and product stakeholders.",
+    ],
+    responsibilities: [
+      "Built the crawler pipeline for collecting reviews, handling retries, and normalizing stored data.",
+      "Designed categorization logic to group feedback into actionable issue buckets.",
+      "Generated recurring reporting outputs for operations and product stakeholders.",
+    ],
+    results: [
+      "Made post-release review monitoring significantly faster than manual checks.",
+      "Surfaced complaint spikes and version-level issues earlier.",
+      "Turned unstructured feedback into searchable trend data for prioritization.",
+    ],
     impact: [
       "Normalized reviews by version, date, rating, and issue category.",
       "Generated recurring reports to highlight spikes in complaints and rating drops.",
