@@ -17,6 +17,19 @@ function NavButton({ href, label, icon, active }) {
   );
 }
 
+function DesktopTaskIcon({ href, icon, active }) {
+  return (
+    <Link
+      href={href}
+      aria-label="Desktop"
+      title="Desktop"
+      className={`taskbar-desktop-icon ${active ? "taskbar-desktop-icon-active" : ""}`}
+    >
+      <XPIcon type={icon} className="h-6 w-6 object-contain" size={24} />
+    </Link>
+  );
+}
+
 function Shortcut({ href, icon, label }) {
   return (
     <Link href={href} className="desktop-shortcut">
@@ -101,9 +114,8 @@ export function DesktopShell({ title, currentPath, address, children, showWindow
       <div className="taskbar">
         <div className="mx-auto flex w-full max-w-[1440px] items-center justify-between gap-3 px-2 py-1.5 sm:px-4">
           <div className="flex flex-1 flex-wrap items-center gap-2">
-            <NavButton
+            <DesktopTaskIcon
               href={navigation[0].href}
-              label={navigation[0].label}
               icon={navigation[0].icon}
               active={currentPath === navigation[0].href}
             />

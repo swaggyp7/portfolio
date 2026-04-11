@@ -368,6 +368,32 @@ img {
   background: linear-gradient(180deg, #fff6c7 0%, #e9dd9d 100%);
 }
 
+.taskbar-desktop-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.1rem;
+  background: transparent;
+  border: 0;
+}
+
+.taskbar-desktop-icon img {
+  filter: drop-shadow(1px 1px 0 rgba(255, 255, 255, 0.35));
+}
+
+.taskbar-desktop-icon:hover {
+  transform: translateY(-1px);
+}
+
+.taskbar-desktop-icon:focus-visible {
+  outline: 2px dotted rgba(20, 53, 95, 0.85);
+  outline-offset: 3px;
+}
+
+.taskbar-desktop-icon-active {
+  opacity: 0.92;
+}
+
 .taskbar-separator {
   width: 1px;
   height: 34px;
